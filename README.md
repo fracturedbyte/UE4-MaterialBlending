@@ -32,7 +32,7 @@ You have to run you project on UE4 4.21.2 compiled from sources. All prerequisit
 
 ### Simple Material Blending
 
-For blending two materials you need to setup few things. First of, you need to setup material that will be used for blending with desired material. To do this - you need set link to that material in Blend Material property (Figure 2). Number two, you need to specify blend weight based on some rules. In our example (Figure 2) we used constant of 0.5 for blending weight. It means that material inputs will be interpolated between those two materials with alpha 0.5.
+For blending two materials you need to setup a few things. First of all, you need to setup material that will be used for blending with desired material. To do this - you need to set link to that material in Blend Material property (Figure 2). Number two, you need to specify blend weight based on some rules. In our example (Figure 2) we used constant of 0.5 for blending weight. It means that material inputs will be interpolated between those two materials with alpha 0.5.
 
 ![Figure 2. Straightforward material blending using constant alpha 0.5](Documentation/BM7.png)
 <p align="center">
@@ -56,7 +56,7 @@ This is auxiliary feature for landscape blending. This node requires absolute wo
 </p>
 
 
-### Landscape Matrerial Blending
+### Landscape Material Blending
 
 Landscape material is a special case, it requires preprocessing to avoid material blending ‘conflicts’. First of all, we need to separate UVs to avoid conflict between materials. Materials usually use UV0 channel, Landscape uses 4 UVs (UV0-2 - for texturing, UV3 - for layers). In our example we redirected UV0 channel to UV2 and updated LandscapeCoord properties (Figure 5, 6).
 
@@ -121,6 +121,6 @@ See also the list of [contributors](https://github.com/fracturedbyte/UE4-Materia
 ## Acknowledgments
 
 * Many thanks for [PurpleBooth](https://gist.github.com/PurpleBooth/) for making templates of [CONTRIBUTION.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) and [README.md](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2) that we've used for this repo
-* Inspired by needs of UE4 developers
+* Inspired by the needs of UE4 developers
 
 
