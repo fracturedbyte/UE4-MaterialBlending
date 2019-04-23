@@ -1,5 +1,9 @@
 # UE4 Material Blending
 
+## Disclaimer
+Features in this engine modification are considered experimental and may be modified in future releases. It is not recommended to use them in production yet. Use this modification at your own risk.
+
+## Overview
 This is auxiliary feature for UE4.21.2 that adds material and landscape blending to the engine. In order to use this feature you need to specify Blend Material and Blend Material Weight for a Material that should blend itself with another material. The idea is very simple - we linearly interpolate a number of material properties: Emissive Color, Base Color, Roughness, Metallic, Specular. We also blend normal property, but for achieving correct result we use next formula: Normal = (n1.xy + n2.xy * BlendMaterialWeight, n1.z); You can also override blend material property in material instance. Adding Material Blend feature will create new shader **with a complexity of both materials.**
 
 <p align="center">
@@ -78,6 +82,25 @@ To enable Landscape Blending you need to enable LandscapeBlending in primitive c
 For an in-depth look please refer to material examples supplied with the sample project:
 **Material'/Game/LBL/Materials/BaseLandscape.BaseLandscape'**<br>
 **Material'/Game/LBL/Materials/BaseSingle.BaseSingle'**
+
+### Restrictions
+
+- You can not change Blend Material property at runtime
+- Since materials that are using Blend feature have to generate additional shader that encapsulates code of both materials - you have to respect the fact that Texture Sample count will also be added. That means that you will reach the limit of Texture count (16) faster. There’s a workaround for this case - you could increase the limit by using Shared texture addressing in your samplers.
+
+### Known issues
+
+- Objects placed on the edge of two Landscape components will not get info from both layer masks, thus making blend on one of the parts of the mesh experience Clamp artifacts. We will replace addressing to Wrap in future releases to mitigate this issue. However it couldn’t be completely fixed due to the current architecture of the Landscape feature in the engine. Workaround is not to place large objects on the edge of Landscape components (as artifacts will not be that noticeable on small objects)
+- Changing/recompiling of blend material will not recompile base material. Currently you have to manually recompile both materials
+- Adding layers to Landscape material also requires manual recompilation of both Landscape and object materials
+
+### Roadmap
+- Improve performance and stability
+- Simplify Heightmap node usage
+- Make compilation of blended materials automatic upon change
+- Change landscape component mask texture sampling addressing to Wrap
+
+
 
 ## Contributing
 
